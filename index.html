@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f6fb">
+  <title>Campus Connect | Placement Management</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#" data-view="dashboard" aria-label="Campus Connect home">
+        <span class="brand-mark">CC</span>
+        <span class="brand-copy"><strong>Campus Connect</strong><small>PLACEMENT PORTAL</small></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="main-nav">
+        <button class="nav-link active" type="button" data-view="dashboard"><span class="nav-icon">▦</span>Overview</button>
+        <button class="nav-link" type="button" data-view="students"><span class="nav-icon">♙</span>Students</button>
+        <button class="nav-link" type="button" data-view="jobs"><span class="nav-icon">▤</span>Job openings</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <span class="help-icon">✦</span>
+          <strong id="season-label">Placement season</strong>
+          <p>Keep your student profiles and opportunities up to date.</p>
+          <button type="button" class="text-button" data-view="students">Manage students <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="user-profile">
+          <div class="avatar avatar-purple">PC</div>
+          <div><strong>Placement Cell</strong><small>Administrator</small></div>
+          <span class="profile-dots" aria-hidden="true">···</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="academic-year" id="academic-year">Academic year</span>
+          <span class="topbar-divider"></span>
+          <button class="icon-button notification-button" type="button" aria-label="Notifications"><span aria-hidden="true">♧</span><i></i></button>
+          <div class="avatar avatar-purple top-avatar">PC</div>
+        </div>
+      </header>
+
+      <section class="page-view active" id="dashboard-view" aria-labelledby="page-title">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow" id="today-label">PLACEMENT SEASON</p>
+            <h1 id="page-title">Good morning, Placement Cell <span class="wave" aria-hidden="true">✦</span></h1>
+            <p class="page-subtitle">Here’s what’s happening with placements at your campus.</p>
+          </div>
+          <button class="button button-primary" type="button" data-action="add-student"><span class="button-plus">+</span> Add student</button>
+        </div>
+
+        <div class="stats-grid" aria-label="Placement statistics">
+          <article class="stat-card">
+            <div class="stat-top"><span>Total students</span><span class="stat-icon icon-blue">♙</span></div>
+            <div class="stat-value" id="stat-students">0</div>
+            <div class="stat-foot"><span class="stat-note">Registered candidates</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Placed students</span><span class="stat-icon icon-green">✓</span></div>
+            <div class="stat-value" id="stat-placed">0</div>
+            <div class="stat-foot"><span class="stat-note">Successfully placed</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Placement rate</span><span class="stat-icon icon-purple">↗</span></div>
+            <div class="stat-value" id="stat-rate">0%</div>
+            <div class="stat-foot"><span class="stat-note">Of eligible students</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Active openings</span><span class="stat-icon icon-orange">▤</span></div>
+            <div class="stat-value" id="stat-openings">0</div>
+            <div class="stat-foot"><span class="stat-note">Companies hiring now</span></div>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel students-panel" aria-labelledby="recent-students-title">
+            <div class="panel-heading">
+              <div><h2 id="recent-students-title">Recent students</h2><p>Keep track of your latest candidates</p></div>
+              <button class="text-button" type="button" data-view="students">View all <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>STUDENT</th><th>DEPARTMENT</th><th>CGPA</th><th>STATUS</th></tr></thead>
+                <tbody id="recent-students-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel openings-panel" aria-labelledby="openings-title">
+            <div class="panel-heading">
+              <div><h2 id="openings-title">Latest openings</h2><p>Opportunities for your students</p></div>
+              <button class="icon-button small-icon-button" type="button" data-action="add-job" aria-label="Add job opening">+</button>
+            </div>
+            <div class="opening-list" id="latest-jobs-list"></div>
+            <button class="all-openings-button" type="button" data-view="jobs">Explore all openings <span aria-hidden="true">→</span></button>
+          </section>
+        </div>
+
+        <section class="panel activity-panel">
+          <div class="panel-heading">
+            <div><h2>Placement progress</h2><p>A quick snapshot of candidate outcomes</p></div>
+            <button class="text-button" type="button" data-view="students">Manage candidates <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="progress-summary">
+            <div class="progress-copy"><strong id="progress-copy">No students registered yet</strong><span id="progress-subcopy">Add candidates to start tracking placement progress.</span></div>
+            <div class="progress-track" role="progressbar" aria-label="Placement rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-bar"></span></div>
+            <strong class="progress-percent" id="progress-percent">0%</strong>
+          </div>
+        </section>
+      </section>
+
+      <section class="page-view" id="students-view" aria-labelledby="students-page-title" hidden>
+        <div class="page-heading">
+          <div><p class="eyebrow">CANDIDATE DIRECTORY</p><h1 id="students-page-title">Students</h1><p class="page-subtitle">Manage student profiles and track placement outcomes.</p></div>
+          <button class="button button-primary" type="button" data-action="add-student"><span class="button-plus">+</span> Add student</button>
+        </div>
+        <section class="panel directory-panel">
+          <div class="directory-toolbar">
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="student-search" type="search" placeholder="Search students..." aria-label="Search students"></label>
+            <label class="select-wrap"><span class="sr-only">Filter by placement status</span><select id="student-status-filter"><option value="all">All statuses</option><option value="Placed">Placed</option><option value="In Process">In Process</option><option value="Not Placed">Not Placed</option></select></label>
+          </div>
+          <div class="table-wrap">
+            <table class="directory-table">
+              <thead><tr><th>STUDENT</th><th>DEPARTMENT</th><th>CGPA</th><th>GRADUATION</th><th>STATUS</th><th>COMPANY</th><th><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody id="students-table-body"></tbody>
+            </table>
+          </div>
+          <div class="table-empty" id="students-empty" hidden><span>♙</span><strong>No students found</strong><p>Try another search or add a new student profile.</p><button class="button button-secondary" type="button" data-action="add-student">Add student</button></div>
+        </section>
+      </section>
+
+      <section class="page-view" id="jobs-view" aria-labelledby="jobs-page-title" hidden>
+        <div class="page-heading">
+          <div><p class="eyebrow">EMPLOYER OPPORTUNITIES</p><h1 id="jobs-page-title">Job openings</h1><p class="page-subtitle">Share hiring opportunities with eligible candidates.</p></div>
+          <button class="button button-primary" type="button" data-action="add-job"><span class="button-plus">+</span> Add opening</button>
+        </div>
+        <div class="jobs-toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="job-search" type="search" placeholder="Search roles or companies..." aria-label="Search job openings"></label>
+          <span class="results-count" id="job-count"></span>
+        </div>
+        <div class="jobs-grid" id="jobs-grid"></div>
+        <div class="table-empty panel" id="jobs-empty" hidden><span>▤</span><strong>No openings found</strong><p>Try another search or add an opportunity for your students.</p><button class="button button-secondary" type="button" data-action="add-job">Add opening</button></div>
+      </section>
+      <footer class="page-footer"><span>Campus Connect <span aria-hidden="true">·</span> Placement Management</span><span>Made for brighter futures</span></footer>
+    </main>
+  </div>
+
+  <dialog class="modal" id="student-modal" aria-labelledby="student-modal-title">
+    <form id="student-form" novalidate>
+      <div class="modal-heading"><div><p class="eyebrow">CANDIDATE PROFILE</p><h2 id="student-modal-title">Add student</h2></div><button class="modal-close" type="button" data-close-modal aria-label="Close dialog">×</button></div>
+      <input type="hidden" id="student-id">
+      <div class="form-grid">
+        <label class="form-field form-field-full">Full name<input id="student-name" name="name" placeholder="e.g. Ananya Sharma" required maxlength="80"></label>
+        <label class="form-field">Email address<input id="student-email" name="email" type="email" placeholder="student@college.edu" required maxlength="120"></label>
+        <label class="form-field">Department<select id="student-department" name="department" required><option value="">Select department</option><option>Computer Science</option><option>Information Technology</option><option>Electronics</option><option>Mechanical</option><option>Electrical</option><option>Civil</option><option>Business Administration</option><option>Other</option></select></label>
+        <label class="form-field">CGPA (0–10)<input id="student-cgpa" name="cgpa" type="number" min="0" max="10" step="0.01" placeholder="8.50" required></label>
+        <label class="form-field">Graduation year<input id="student-year" name="year" type="number" min="2020" max="2100" required></label>
+        <label class="form-field">Placement status<select id="student-status" name="status"><option>Not Placed</option><option>In Process</option><option>Placed</option></select></label>
+        <label class="form-field">Company (if placed)<input id="student-company" name="company" placeholder="Company name" maxlength="80"></label>
+      </div>
+      <p class="form-error" id="student-form-error" role="alert" hidden></p>
+      <div class="modal-actions"><button class="button button-secondary" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Save student</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="job-modal" aria-labelledby="job-modal-title">
+    <form id="job-form" novalidate>
+      <div class="modal-heading"><div><p class="eyebrow">EMPLOYER OPPORTUNITY</p><h2 id="job-modal-title">Add job opening</h2></div><button class="modal-close" type="button" data-close-modal aria-label="Close dialog">×</button></div>
+      <input type="hidden" id="job-id">
+      <div class="form-grid">
+        <label class="form-field form-field-full">Role title<input id="job-role" name="role" placeholder="e.g. Graduate Software Engineer" required maxlength="100"></label>
+        <label class="form-field">Company<input id="job-company" name="company" placeholder="Company name" required maxlength="80"></label>
+        <label class="form-field">Location<input id="job-location" name="location" placeholder="e.g. Bengaluru / Remote" required maxlength="80"></label>
+        <label class="form-field">Package (LPA)<input id="job-package" name="package" type="number" min="0" step="0.1" placeholder="e.g. 8.5" required></label>
+        <label class="form-field">Deadline<input id="job-deadline" name="deadline" type="date" required></label>
+        <label class="form-field form-field-full">Eligible department<input id="job-department" name="department" placeholder="e.g. Computer Science or All departments" required maxlength="80"></label>
+      </div>
+      <p class="form-error" id="job-form-error" role="alert" hidden></p>
+      <div class="modal-actions"><button class="button button-secondary" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Save opening</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
